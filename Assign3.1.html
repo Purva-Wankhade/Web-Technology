@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        #integer-array-demo, #named-entities-array-demo {
+            margin-top: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        #userInputSection {
+            margin-bottom: 20px;
+        }
+
+        #userInput {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #searchButton {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        #searchButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <title>Array Operations Demo</title>
+</head>
+<body>
+
+<div class="container">
+    <div id="userInputSection">
+        <label for="userInput"><strong>Enter a number:</strong></label>
+        <input type="text" id="userInput" placeholder="E.g., 4">
+        <button id="searchButton" onclick="handleSearch()">Search</button>
+    </div>
+
+    <!-- Array Operations for Integer Elements -->
+    <div>
+        <h2>Searching and Sorting Integer Array</h2>
+        <!-- Display the integer array, search, and sort functionality -->
+        <div id="integer-array-demo"></div>
+    </div>
+
+    <!-- Array Operations for Named Entities -->
+    <div>
+        <h2>Array for Named Entities</h2>
+        <!-- Display the named entities array functionality -->
+        <div id="named-entities-array-demo"></div>
+    </div>
+</div>
+
+<!-- Bootstrap and jQuery Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Your JavaScript file for array operations -->
+<script src="array-operations.js"></script>
+
+<script>
+    function handleSearch() {
+        // Get the user input
+        const userInput = document.getElementById("userInput").value;
+
+        // Check if the entered number is valid
+        if (!isNaN(userInput)) {
+            // Convert the user input to an integer
+            const searchElement = parseInt(userInput);
+
+            // Call the integerArrayDemo function with the user's input
+            integerArrayDemo(searchElement);
+        } else {
+            // Display an error message for invalid input
+            alert("Invalid input. Please enter a valid number.");
+        }
+    }
+</script>
+
+</body>
+</html>
