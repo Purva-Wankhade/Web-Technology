@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>List Manipulation</h2>
+
+<label for="numberInput">Enter Number:</label>
+<input type="number" id="numberInput">
+<button onclick="addNumber()">Add to List</button>
+
+<button onclick="displayList()">Display List</button>
+<button onclick="sortList()">Sort List</button>
+
+<ul id="numberList"></ul>
+
+<script>
+    const numbers = [];
+
+    function addNumber() {
+        const numberInput = document.getElementById('numberInput');
+        const numberList = document.getElementById('numberList');
+
+        if (numberInput.value !== '') {
+            const number = parseInt(numberInput.value);
+            numbers.push(number);
+            numberInput.value = ''; // Clear input field
+        }
+
+        displayList();
+    }
+
+    function displayList() {
+        const numberList = document.getElementById('numberList');
+        numberList.innerHTML = '';
+
+        numbers.forEach(number => {
+            const listItem = document.createElement('li');
+            listItem.textContent = number;
+            numberList.appendChild(listItem);
+        });
+    }
+
+    function sortList() {
+        numbers.sort((a, b) => a - b);
+        displayList();
+    }
+</script>
+
+</body>
+</html>
