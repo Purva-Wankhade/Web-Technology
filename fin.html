@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Manipulation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            background: url('https://example.com/your-background-image.jpg') center/cover fixed no-repeat; /* Replace with your background image URL */
+            color: #333;
+        }
+        h2 {
+            color: #3498db;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input, textarea {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2184b3;
+        }
+        .number-item, .entity-item {
+            display: inline-block;
+            padding: 12px;
+            margin: 10px;
+            border: 2px solid #3498db;
+            cursor: pointer;
+            background-color: #fff;
+            color: #3498db;
+            border-radius: 6px;
+            transition: transform 0.3s;
+        }
+        .number-item.selected, .entity-item.selected {
+            background-color: #e74c3c; 
+            color: #fff;
+        }
+        #numberList, #sortedList, #entityList {
+            margin-top: 20px;
+        }
+        #searchResult {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h2>List Manipulation</h2>
+
+    <div>
+        <label for="numberInput">Enter Number:</label>
+        <input type="text" id="numberInput">
+        <button onclick="addNumber()">Add to Number List</button>
+
+        <button onclick="displayList('numberList')">Display Number List</button>
+        <button onclick="sortList('numberList')">Sort Number List</button>
+        <button onclick="search('numberList')">Search Number List</button>
+    </div>
+
+    <div>
+        <label for="entityInput">Enter Entity:</label>
+        <textarea id="entityInput"></textarea>
+        <button onclick="addEntity()">Add to Entity List</button>
+
+        <button onclick="displayList('entityList')">Display Entity List</button>
+    </div>
+
+    <div id="numberList"></div>
+    <div id="sortedList"></div>
+    <div id="entityList"></div>
+    <div id="searchResult"></div>
+</div>
+
+<script>
+    const numbers = [];
+    const entities = [];
+
+    function addNumber() {
+        const numberInput = document.getElementById('numberInput');
+        const inputVal = numberInput.value.trim();
+        
+        if (inputVal !== '') {
+            const number = parseInt(inputVal);
+
+            if (isNaN(number)) {
+                alert('Please enter a valid integer.');
+                return;
+            }
+
+            numbers.push(number);
+            numberInput.value = ''; // Clear input field
+        }
+
+        displayList('numberList');
+    }
+
+    function addEntity() {
+        const entityInput = document.getElementById('entityInput');
+        const inputVal = entityInput.value.trim();
+        
+        if (inputVal !== '') {
+            entities.push(inputVal);
+            entityInput.value = ''; // Clear input field
+        }
+
+        displayList('entityList');
+    }
+
+    function displayList(listType) {
+        const listContainer = document.getElementById(listType);
+        listContainer.innerHTML = '';
+
+        let list;
+        if (listType === 'numberList') {
+            list = numbers;
+        } else if (listType === 'entityList') {
+            list = entities;
+        }
+
+        list.forEach((item, index) => {
+            const listItem = document.createElement('div');
+            listItem.classList.add(`${listType.substring(0, listType.length - 4)}-item`);
+            if (listType === 'numberList' && list[index] < 0) {
+                listItem.classList.add('selected');
+            }
+            listItem.textContent = (listType === 'numberList') ? Math.abs(item) : item;
+            listItem.addEventListener('click', () => toggleSelection(index, listType));
+            listContainer.appendChild(listItem);
+        });
+    }
+
+    function sortList(listType) {
+        const sortedList = document.getElementById('sortedList');
+        sortedList.innerHTML = ''; // Clear previous sorted list
+
+        let list;
+        if (listType === 'numberList') {
+            list = numbers;
+        } else if (listType === 'entityList') {
+            list = entities;
+        }
+
+        // Bubble Sort
+        for (let i = 0; i < list.length - 1; i++) {
+            for (let j = 0; j < list.length - i - 1; j++) {
+                if (list[j] > list[j + 1]) {
+                    // swap temp and arr[i]
+                    let temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
+                }
+            }
+        }
+
+        list.forEach((item) => {
+            const sortedItem = document.createElement('div');
+            sortedItem.textContent = item;
+            sortedList.appendChild(sortedItem);
+        });
+
+        displayList(listType); // Display the original list as well
+    }
+
+    function toggleSelection(index, listType) {
+        if (listType === 'numberList') {
+            numbers[index] = -numbers[index];
+        }
+
+        displayList(listType);
+    }
+
+    function search(listType) {
+        const searchResult = document.getElementById('searchResult');
+        const inputElement = (listType === 'numberList') ? document.getElementById('numberInput') : document.getElementById('entityInput');
+        const itemToSearch = inputElement.value.trim().toLowerCase(); // Convert to lowercase
+
+        if (itemToSearch === '') {
+            alert(`Please enter a valid ${listType.substring(0, listType.length - 4)}.`);
+            return;
+        }
+
+        const list = (listType === 'numberList') ? numbers : entities;
+        const isItemFound = list.map(item => item.toString().toLowerCase()).includes(itemToSearch); // Convert each item to lowercase
+
+        if (isItemFound) {
+            searchResult.textContent = `${listType.substring(0, listType.length - 4).charAt(0).toUpperCase() + listType.substring(0, listType.length - 4).slice(1)} ${inputElement.value} found in the list.`;
+        } else {
+            searchResult.textContent = `${listType.substring(0, listType.length - 4).charAt(0).toUpperCase() + listType.substring(0, listType.length - 4).slice(1)} ${inputElement.value} not found in the list.`;
+        }
+    }
+</script>
+
+</body>
+</html>
