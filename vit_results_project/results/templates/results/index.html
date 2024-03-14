@@ -1,0 +1,108 @@
+<!-- Create new Project -->
+<!-- django-admin startproject vit_results_project -->
+<!-- cd vit_results_project -->
+<!-- python manage.py startapp results -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Semester Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Semester Marks</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">Student Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="reg_no">Registration Number:</label>
+            <input type="text" id="reg_no" name="reg_no" required>
+
+            <!-- Subject 1 -->
+            <label for="subject1_mse">Subject 1 MSE:</label>
+            <input type="text" id="subject1_mse" name="subject1_mse" required>
+            <label for="subject1_ese">Subject 1 ESE:</label>
+            <input type="text" id="subject1_ese" name="subject1_ese" required>
+
+            <!-- Subject 2 -->
+            <label for="subject2_mse">Subject 2 MSE:</label>
+            <input type="text" id="subject2_mse" name="subject2_mse" required>
+            <label for="subject2_ese">Subject 2 ESE:</label>
+            <input type="text" id="subject2_ese" name="subject2_ese" required>
+
+            <!-- Subject 3 -->
+            <label for="subject3_mse">Subject 3 MSE:</label>
+            <input type="text" id="subject3_mse" name="subject3_mse" required>
+            <label for="subject3_ese">Subject 3 ESE:</label>
+            <input type="text" id="subject3_ese" name="subject3_ese" required>
+
+            <!-- Subject 4 -->
+            <label for="subject4_mse">Subject 4 MSE:</label>
+            <input type="text" id="subject4_mse" name="subject4_mse" required>
+            <label for="subject4_ese">Subject 4 ESE:</label>
+            <input type="text" id="subject4_ese" name="subject4_ese" required>
+
+            <button type="submit" name="submit">Calculate Result</button>
+        </form>
+
+        {% if result %}
+            <br><strong>Result calculated successfully!</strong>
+            <br>Total Marks: {{ result }}
+        {% endif %}
+    </div>
+</body>
+</html>
