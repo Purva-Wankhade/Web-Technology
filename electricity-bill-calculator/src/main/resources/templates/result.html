@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Electricity Bill Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Electricity Bill Result</h1>
+        <div class="mb-3">
+            <p>Units Consumed: <span th:text="${unitsConsumed}"></span></p>
+            <p>Total Bill: Rs. <span th:text="${totalBill}"></span></p>
+        </div>
+        <a href="/" class="btn btn-primary">Calculate Again</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
