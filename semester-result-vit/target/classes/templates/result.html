@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Result</title>
+</head>
+<body>
+    <h1>Student Result</h1>
+    
+    <form action="#" th:action="@{/result}" th:object="${student}" method="post">
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required><br><br>
+        
+        <h3>Subject 1:</h3>
+        <label>MSE Marks:</label>
+        <input type="number" th:field="*{mse1}" required>
+        <label>ESE Marks:</label>
+        <input type="number" th:field="*{ese1}" required><br><br>
+        
+        <h3>Subject 2:</h3>
+        <label>MSE Marks:</label>
+        <input type="number" th:field="*{mse2}" required>
+        <label>ESE Marks:</label>
+        <input type="number" th:field="*{ese2}" required><br><br>
+        
+        <h3>Subject 3:</h3>
+        <label>MSE Marks:</label>
+        <input type="number" th:field="*{mse3}" required>
+        <label>ESE Marks:</label>
+        <input type="number" th:field="*{ese3}" required><br><br>
+        
+        <h3>Subject 4:</h3>
+        <label>MSE Marks:</label>
+        <input type="number" th:field="*{mse4}" required>
+        <label>ESE Marks:</label>
+        <input type="number" th:field="*{ese4}" required><br><br>
+        
+        <input type="submit" value="Calculate Result">
+    </form>
+    
+    <br><br>
+    
+    <h2>Results:</h2>
+    <p>Subject 1 Result: <span th:text="${result1}"></span></p>
+    <p>Subject 2 Result: <span th:text="${result2}"></span></p>
+    <p>Subject 3 Result: <span th:text="${result3}"></span></p>
+    <p>Subject 4 Result: <span th:text="${result4}"></span></p>
+    <h3>Total Percentage: <span th:text="${totalPercentage}"></span>%</h3>
+</body>
+</html>
